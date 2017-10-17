@@ -1,0 +1,14 @@
+{
+    "phone": "+7 (916) 013-13-46",
+    "email": "v.boldyrev16@gmail.com",
+    "place": {
+        "address": "г. Подольск, ул. Февральская, д.65 (институт экономики)",
+        "lat": 55.433334,
+        "lng": 37.545649
+    },
+    "socials": {
+        "vk": "https://vk.com/youngeek",
+        "facebook": "https://www.facebook.com/Youngeek-883593941782174/",
+        "instagram": "https://www.instagram.com/_youngeek/"
+    }
+}

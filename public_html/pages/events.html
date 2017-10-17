@@ -1,0 +1,74 @@
+<style> 
+    .overflow-hidden {
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+        .col-auto {
+            position: relative;
+        }
+
+        .roll {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            background-color: transparent;
+            border: none;
+
+            height: 1rem;
+        }
+
+        .roll-left {
+            left: 0;
+        }
+
+        .roll-right {
+            right: 0;
+        }
+</style>
+
+        <section> 
+            <div class="container-fluid">
+                <div class="row no-gutters">
+                    <div class="col-6 pr-4" style="position: relative; border-right-style: solid; border-right-color: #dedede; border-right-width: .1rem;"> 
+                        <button class="roll roll-left" data-for="list-view-passed" data-scroll="-50"></button>
+
+                        <div class="overflow-hidden w-100" id="list-view-passed">
+                            <ul style="white-space: nowrap">
+                                <ng-include src="'pages/components/event_card.html'" ng-repeat="event in events" ng-if="event.passed != false"></ng-include>
+                            </ul>
+                        </div>
+
+                        <button class="roll roll-right" data-for="list-view-passed" data-scroll="50"></button>
+                    </div>
+
+                    <div class="col-6 pl-4"> 
+                        <button class="roll roll-left" data-for="list-view-future" data-scroll="-50"></button>
+
+                        <div class="overflow-hidden w-100" id="list-view-future">
+                            <ul style="white-space: nowrap">
+                                <ng-include src="'pages/components/event_card.html'" ng-repeat="event in events" ng-if="event.passed == true"></ng-include>
+                            </ul>
+                        </div>
+
+                        <button class="roll roll-right" data-for="list-view-future" data-scroll="50"></button>
+                    </div>
+                </div>
+            </div> <!-- .container -->
+        </section>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script>
+
+            $(function (){
+                $('.roll').click(function() {
+                    var $scrollView = $('#' + $(this).data('for')); 
+                    $scrollView.scrollLeft($scrollView.scrollLeft() + parseInt($(this).data('scroll'))); 
+                });
+            });
+        </script>
+    </body>
+</html>

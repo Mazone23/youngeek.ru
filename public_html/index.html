@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html ng-app="youngeekApp">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Youngeek</title>
+    <link rel="icon" href="img/logo_sqr.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="css/general.css">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+    <script>
+        angular.module('youngeekApp', ['ngRoute'])
+            .config(function($routeProvider) {
+                $routeProvider
+                    .when('/', {
+                        templateUrl: 'pages/home.html',
+                        controller: 'homePageCtrl'
+                    })
+                    .when('/courses', {
+                        templateUrl: 'pages/courses.html'
+                    })
+                    .when('/courses/:courseId', {
+                        templateUrl: 'pages/course.html',
+                        controller: 'courseViewCtrl'
+                    })
+                    .when('/faq', {
+                        templateUrl: 'pages/faq.html',
+                        controller: 'faqCtrl'
+                    })
+                    .when('/events', {
+                        templateUrl: 'pages/events.html',
+                        controller: 'eventsListCtrl'
+                    })
+                    .when('/events/:eventId', {
+                        templateUrl: 'pages/event.html'
+                    })
+                    .when('/contacts', {
+                        templateUrl: 'pages/contacts.html',
+                        controller: 'contactsCtrl'
+                    })
+            })
+            .filter('trusted', ['$sce', function($sce) {
+                return function(url) {
+                    return $sce.trustAsResourceUrl(url);
+                };
+            }])
+            .controller('homePageCtrl', function($scope, $http) {
+                $http.get('/static/courses.json')
+                    .then(function(response) {
+                        $scope.tutors = {};
+
+                        for (var i in response.data) {
+                            if (response.data[i].active === false)
+                                continue;
+
+                            var name = response.data[i].tutor.name;
+
+                            if (name in $scope.tutors)
+                                $scope.tutors[name].title += ', "' + response.data[i].name + '"';
+                            else
+                                $scope.tutors[name] = {
+                                    title: 'Преподаватель курса "' + response.data[i].name + '"',
+                                    photo: response.data[i].tutor.photo
+                                }
+                        }
+                    })
+            })
+            .controller('coursesListCtrl', function($scope, $http) {
+                $http.get('/static/courses.json')
+                    .then(function(response) {
+                        $scope.courses = response.data;
+                    });
+            })
+            .controller('courseViewCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+                $http.get('/static/courses.json')
+                    .then(function(response) {
+                        for (var i in response.data)
+                            if (response.data[i].id == $routeParams.courseId) {
+                                $scope.course = response.data[i];
+                                return;
+                            }
+
+                        alert(`Unknown course (id=${$routeParams.courseId})`);
+                    });
+
+                $scope.collapse = function(index) {
+                    $('.panel-collapse').eq(index).collapse('toggle');
+                }
+            }])
+            .controller('faqCtrl', function($scope, $http) {
+                $http.get('/static/faq.json')
+                    .then(function(response) {
+                        $scope.qa = response.data
+                    });
+
+                $scope.collapse = function(index) {
+                    $('.panel-collapse').eq(index).collapse('toggle');
+
+                }
+            })
+            .controller('eventsListCtrl', function($scope, $http) {
+                $http.get('/static/events.json')
+                    .then(function(response) {
+                        $scope.events = response.data;
+                    });
+            })
+            .controller('eventViewCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+                $http.get('/static/events.json')
+                    .then(function(response) {
+                        for (var i in response.data)
+                            if (response.data[i].id == $routeParams.eventId) {
+                                $scope.event = response.data[i];
+                                return;
+                            }
+
+                        alert(`Event not found (id=${$routeParams.eventId})`);
+                    });
+            }])
+            .controller('footerCtrl', function($scope, $http) {
+                $http.get('/static/contacts.json')
+                    .then(function(response) {
+                        $scope.contacts = response.data;
+                    });
+            })
+            .controller('contactsCtrl', function($scope) {
+                $scope.initialize = function() {
+                    var point = new google.maps.LatLng(55.433334, 37.545649);
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        scrollwheel: false,
+                        navigationControl: true,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        draggable: true,
+                        center: point
+                    });
+
+                    new google.maps.Marker({
+                        position: point,
+                        map: map
+                    });
+                }
+            });
+
+    </script>
+
+    <div id="navbar">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <img class="img-fluid" style="display: block; margin: 0 auto;" role="button" onclick="location.href='index.html';" src="img/logo_white.png" alt="[img: logo]">
+                </div>
+
+                <div class="col-6">
+                    <a href="#/">Главная</a>
+                    <a href="#!courses">Курсы</a>
+                    <a href="http://geekcamp.ru">Лагерь</a>
+                    <a href="#!faq">Вопросы</a>
+                    <a href="#!events">События</a>
+                    <a href="#!contacts">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-view></div>
+
+    <footer style="position: relative; background-color: #3b3b3b; color: #fff;" ng-controller="footerCtrl">
+        <div class="container py-3">
+            <div class="row text-center justify-content-center">
+                <div class="col-lg-3 col-sm-6 col-8 px-5">
+                    <div class="row my-3 no-gutters justify-content-center">
+                        <div class="col-3 px-1">
+                            <img role="button" class="img-fluid" src="img/social_vk.png" alt="[img: vk]" onclick="window.location.href='https://vk.com/youngeek';" />
+                        </div>
+                        <div class="col-3 px-1">
+                            <img role="button" class="img-fluid" src="img/social_fb.png" alt="[img: facebook]" onclick="window.location.href='https://www.facebook.com/Youngeek-883593941782174/';" />
+                        </div>
+                        <div class="col-3 px-1">
+                            <img role="button" class="img-fluid" src="img/social_insta.png" alt="[img: vk]" onclick="window.location.href='https://www.instagram.com/_youngeek/';" />
+                        </div>
+                    </div>
+                    {{ contacts.phone }}<br> &copy; Copyright 2017 Youngeek
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" style="position: absolute; right: 1.5%; bottom: .75%; width: 6%; font-size: .5em;" onclick="widnow.location.href = 'http://clent.org';">
+            <img class="img-fluid my-1" src="img/clent_logo.png" alt="[img: Clent logo]" /> Designed by Clent
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOTjVgbcCH_QMZFsskcCGAtBhqeVLGbeE"></script>
+</body>
+
+</html>

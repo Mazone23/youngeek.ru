@@ -1,0 +1,38 @@
+<style>
+    .card-img-top {
+        height: 10rem;
+    }
+
+</style>
+
+<section ng-controller="coursesListCtrl">
+    <div class="container">
+        <h3 class="mb-4">Детям до 13</h3>
+
+        <div class="row">
+            <div class="col-3 my-2" ng-repeat="course in courses" ng-if="course.age.from < 13 && course.active">
+                <a class="card" role="button" ng-href="#!courses/{{ course.id }}">
+                    <img class="card-img-top" ng-src="{{ course.images[0] }}" alt="[img: {{ course.name }} process]">
+                    <div class="card-block">
+                        <h4 class="card-title">{{ course.name }}</h4>
+                        <h6 class="card-subtitle text-muted">{{ course.category }}</h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <h3 class="mb-4 mt-5">Детям от 13</h3>
+
+        <div class="row">
+            <div class="col-3 my-2" ng-repeat="course in courses" ng-if="course.age.from >= 13 && course.active">
+                <a class="card" role="button" ng-href="#!courses/{{ course.id }}">
+                    <img class="card-img-top" ng-src="{{ course.images[0] }}" alt="[img: {{ course.name }} process]">
+                    <div class="card-block">
+                        <h4 class="card-title">{{ course.name }}</h4>
+                        <h6 class="card-subtitle text-muted">{{ course.category }}</h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

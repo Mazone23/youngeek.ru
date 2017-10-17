@@ -1,0 +1,40 @@
+/*    Header     */
+
+header { 
+    position: relative;
+	background-image: url(../img/header.png);
+	background-size: cover;
+} 
+
+header h1 {
+    position: absolute;
+    top: 60%;
+    left: 5%;
+    max-width: 40%;
+    transform: translateY(-50%);
+
+    color: #000;
+}
+
+/*/////////////////*/
+
+
+section {
+	padding-top: 2rem; 
+	padding-bottom: 4rem;
+}
+
+/* Section: benefits */
+
+#section-benefits {
+    font-size: 1.25em;
+}
+
+/*/////////////////*/
+
+#section-about-us {
+    padding-top: 4rem;
+}
+
+/*/////////////////*/
+

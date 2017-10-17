@@ -1,0 +1,32 @@
+<style>
+    .material-icons {
+        display: inline-flex;
+        vertical-align: top;
+    }
+
+</style>
+
+<section>
+    <div class="container">
+        <div class="row w-100 mb-3">
+            <div id="map" class="w-100" style="height: 30rem;" ng-init="initialize()"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <form>
+                    <input type="text" class="form-control mt-1" placeholder="Ваше имя" name="name">
+                    <input type="email" class="form-control mt-1" placeholder="Email" name="_replyto">
+                    <textarea rows="2" class="form-control mt-1" style="resize: none;" name="message" placeholder="Дополнительная информация"></textarea>
+                    <button class="btn btn-primary m-2" type="submit">Отправить</button>
+                </form>
+            </div>
+
+            <div class="col-6" id="contacts" style="font-size: 1.1em;">
+                <i class="material-icons">place</i> г. Подольск, ул. Февральская, д.65 (институт экономики)<br>
+                <i class="material-icons">email</i> v.boldyrev16@gmail.com<br>
+                <i class="material-icons">local_phone</i> +7 (916) 013-13-46
+            </div>
+        </div>
+    </div>
+</section>

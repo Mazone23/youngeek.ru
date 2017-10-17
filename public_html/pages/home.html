@@ -1,0 +1,202 @@
+<style>
+    /*    Header     */
+    
+    header {
+        position: relative;
+        width: 98vw;
+        height: 85vh;
+        background-image: url(../img/header.png);
+        background-size: cover;
+    }
+    
+    header_left {}
+    
+    @media (min-width: 1500px) {
+        header {
+            background-position: -30vw 0;
+        }
+    }
+    
+    header h1 {
+        position: absolute;
+        top: 60%;
+        left: 2%;
+        max-width: 50%;
+        transform: translateY(-50%);
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 27pt;
+    }
+    
+    header h3 {
+        position: absolute;
+        top: 73%;
+        left: 2%;
+        color: #ffffff;
+    }
+    /*/////////////////*/
+    
+    section {
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+    }
+    /* Section: benefits */
+    
+    #section-benefits {
+        font-size: 1.25em;
+    }
+    /*/////////////////*/
+    
+    #section-about-us {
+        padding-top: 4rem;
+        background-image: url(../img/section-about-us.png);
+    }
+    
+    #section-team {
+        background-image: url(../img/section-tutors.png);
+    }
+    /*/////////////////*/
+
+</style>
+<header>
+    <img style="width: 110vw; height: 90vh;" src="../img/ForHeader.png">
+    <h1>Центр цифровых технологий Youngeek - город Подольск</h1>
+    <h3>Мы учим навыкам будущего</h3>
+</header>
+
+<section id="section-benefits" style="margin-top: 20px">
+    <div class="container">
+        <div class="row justify-content-around">
+            <div class="col text-center">
+                <img class="img-fluid mb-4" src="img/benefit_tutors.png" width="25%" alt=""><br> Преподаватели
+                <br>
+                <small class="text-muted">Детей обучают студенты и выпускники ведущих технических ВУЗов страны.</small>
+            </div>
+
+            <div class="col text-center">
+                <img class="img-fluid mb-4" src="img/benefit_method.png" width="25%" alt=""><br> Методика
+                <br>
+                <small class="text-muted">Для обучения мы используем только самые современные платформы и постоянно работаем над улучшением программы курсов.</small>
+            </div>
+
+            <div class="col text-center">
+                <img class="img-fluid mb-4" src="img/benefit_excursions.png" width="25%" alt=""><br> Взгляд изнутри<br>
+                <small class="text-muted">Мы проводим семинары и экскурсии в ведущие IT компаниии страны</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="section-about-us">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6" id="video-container" style="position: relative;">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/2KD2WTjHZ3o" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <!--
+                <img src="img/play-button.png" alt="Btn" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 20%;">
+                <video loop class="w-100" preload id="video" poster="img/videoPreview.png">
+			<source src="video/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0_2.mp4" type="video/mp4"/>
+			Your browser does not support the video tag.
+		    </video>
+-->
+
+            </div>
+
+            <div class="col-6">
+                <h2 style="color: #ffffff">О нас</h2>
+                <p style="font-size: 1.1em; margin-top: 1rem; color: #ffffff">
+                    Youngeek - образовательный центр, главной задачей которого является развитие инженерных навыков у детей и подростков. Мы обучаем навыкам будущего, используя интерес детей к компьютерным играм и технологиям. В ходе занятий ученики развивают логическое и творческое мышление, изучают основы программирования и активно участвуют в проектной деятельности.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--<hr>-->
+
+<section id="section-partners" style="background-color: #ffffff; padding-top: 150;">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #3c66e5">Наши партнеры</h2>
+
+        <div class="row justify-content-center align-middle">
+            <div class="col-2 px-4" style="margin-right: 15vh;">
+                <img class="img-fluid" role="button" src="img/partner_mephi.png" onclick="location.href='https://mephi.ru/';">
+            </div>
+            <div class="col-2 px-4" style="margin-right: 15vh;">
+                <img class="img-fluid" role="button" src="img/partner_bmstu.png" onclick="location.href='http://www.bmstu.ru/';">
+            </div>
+            <div class="col-2 px-4">
+                <img class="img-fluid" role="button" src="img/partner_bkc.png" onclick="location.href='http://www.bkc.ru/schools/podolsk';">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="position: fixed; right: 2vw; bottom: 5vh; width: 5rem; height: 5rem;">
+    <div class="btn btn-success w-100 h-100 text-center rounded-circle" role="button" data-toggle="modal" data-target="#myModal">
+        <img class="w-100 h-75 mt-2" ng-src="img/new_order.png">
+    </div>
+</div>
+<section id="section-team">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #3c66e5">Команда</h2>
+        <div class="row justify-content-center">
+            <div class="col-3 text-center mb-2" ng-repeat="(name, tutor) in tutors">
+                <img class="img-fluid rounded-circle px-5 my-3" src="{{ tutor.photo }}" alt="[img: {{ name }} photo]"><br> {{ name }}<br>
+                <small class="text-muted">{{ tutor.title }}</small>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--<hr>-->
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <form>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="Ваш Email">
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="phone" placeholder="Ваш номер телефона">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control" value="comment" style="resize: none;" placeholder="Дополнительная информация"></textarea>
+                    </div>
+
+                    <button class="btn btn-secondary float-right" type="submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <iframe src="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdHRnAT8FG3Zrz59YR3z_5HTK52Z35p6UmnmENFmtW2OncF2w/viewform?embedded=true" class="w-100" height="1500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<script>
+    $('#video-container').click(function(e) {
+        if ($('#video').get(0).paused) {
+            $('.play-button').hide();
+            $('#video').get(0).play();
+        } else {
+            $('.play-button').show();
+            $('#video').get(0).pause();
+        }
+    });
+
+</script>
+-->

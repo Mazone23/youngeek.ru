@@ -1,0 +1,121 @@
+<style>
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    .panel {
+        margin-bottom: 1.5vh;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .panel-heading {
+        /*background-color: #efefef !important;*/
+        /*border: none;*/
+        border-bottom-style: solid;
+        border-bottom-width: .01rem;
+        border-bottom-color: #dedede;
+    }
+    
+    .spoiler-trigger {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        background: none;
+        border: none;
+        text-align: left;
+        color: #00796b
+    }
+    
+    .spoiler-trigger:focus {
+        outline: none;
+    }
+    
+    .material-icons {
+        display: inline-flex;
+        vertical-align: top;
+    }
+
+</style>
+
+
+<header style="background-color: #ebebeb; padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <img class="img-thumbnail img-fluid" ng-src="{{ course.images[0] }}" style="height: 13rem;" alt="[img: {{ course.name }} logo]">
+            </div>
+            <div class="col-4">
+                <h1>{{ course.name }}</h1>
+                <span ng-show="course.age.to">Возраст: {{ course.age.from }}-{{ course.age.to }} лет</span>
+                <span ng-show="!course.age.to">Возраст: от {{ course.age.from }} лет</span>
+                <br> Продолжительность: {{ course.course_duration }}<br> Длительность занятия: {{ course.lecture_duration }}<br>
+                <button class="text-uppercase btn btn-success mt-3" role="button">записаться</button>
+            </div>
+            <div class="col-4" style="padding-top: 2.5rem; padding-left: 2rem;">
+                <i class="material-icons">place</i> {{ course.place }}<br>
+                <i class="material-icons">email</i> {{ course.email }}<br>
+                <i class="material-icons">local_phone</i> {{ course.phone }}
+            </div>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <h2>О курсе</h2>
+                {{ course.snippet }}
+            </div>
+
+            <div class="col-5">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe src="{{ course.video | trusted }}" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center" style="padding-top: 3rem;">
+            <div class="col-5">
+                <h2>Преподаватель</h2>
+
+                <div class="row pt-3">
+                    <div class="col-4">
+                        <img class="rounded-circle img-fluid img-thumbnail" ng-src="{{ course.tutor.photo }}" alt="[img: {{ course.tutor.name }} photo]">
+                    </div>
+                    <div class="col">
+                        {{ course.tutor.name }}<br>
+                        <small class="text-muted"> 
+			    {{ course.tutor.about }}
+			</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <h2>Программа</h2>
+                <div class="pt-3" id="course-structure" ng-repeat="item in course.structure">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <button role="button" class="spoiler-trigger" ng-click="collapse($index)" data-toggle="collapse">{{ item.title }}</button>
+                        </div>
+                        <div class="panel-collapse collapse out">
+                            <div class="panel-body">
+                                <p>{{ item.snippet }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <button class="col-2 text-uppercase btn btn-success" role="button">записаться</button>
+        </div>
+    </div>
+</section>

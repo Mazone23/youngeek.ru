@@ -1,0 +1,45 @@
+<style>
+    section {
+        width: 100%;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-top: 7.5vh;
+        padding-bottom: 7.5vh;
+        background-color: #f7f6f6;
+    }
+    
+    .panel {
+        margin-bottom: 1.5vh;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .panel-heading {
+        background-color: white !important;
+        border: none;
+    }
+    
+    .spoiler-trigger {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        background: none;
+        border: none;
+        text-align: left;
+        color: #00796b
+    }
+
+</style>
+
+<section>
+    <div class="panel panel-default" ng-repeat="item in qa">
+        <div class="panel-heading">
+            <button role="button" class="spoiler-trigger" ng-click="collapse($index)" data-toggle="collapse">{{ item.question }}</button>
+        </div>
+        <div class="panel-collapse collapse out">
+            <div class="panel-body">
+                <p>{{ item.answer }}</p>
+            </div>
+        </div>
+    </div>
+</section>

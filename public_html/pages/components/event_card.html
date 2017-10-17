@@ -1,0 +1,10 @@
+    <li class="d-inline-block mx-1" style="width: 20rem; white-space:initial" ng-repeat="event in events" ng-if="event.passed == true">
+        <a class="card" role="button" ng-href="#!events/{{ event.id }}" style="text-decoration: none;">
+            <img class="card-img-top" src="{{ event.photo }}" style="height: 15rem;" alt="[img: {{ event.title }} image">
+            <div class="card-block">
+                <h4 class="card-title mb-2" style="height: 6rem;">{{ event.title }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">{{ event.type }}</h6>
+                <p class="card-text">{{ event.snippet }}</p>
+            </div>
+        </a>
+    </li>

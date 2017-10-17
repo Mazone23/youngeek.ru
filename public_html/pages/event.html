@@ -1,0 +1,88 @@
+<style>
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    .panel {
+        margin-bottom: 1.5vh;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .panel-heading {
+        /*background-color: #efefef !important;*/
+        /*border: none;*/
+        border-bottom-style: solid;
+        border-bottom-width: .01rem;
+        border-bottom-color: #dedede;
+    }
+    
+    .spoiler-trigger {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        background: none;
+        border: none;
+        text-align: left;
+        color: #00796b
+    }
+
+</style>
+
+<section ng-controller="eventViewCtrl">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <img class="img-fluid" src="{{ event.photo  }}" alt="{{ event.title }}">
+            </div>
+
+            <div class="col-5">
+                <h2>{{ event.title }}</h2>
+                {{ event.snippet }}
+            </div>
+        </div>
+
+        <hr class="mt-4" width="70%">
+
+        <h2 class="text-center my-4">
+            <span ng-show="event.date">{{ event.date.day }}.{{ event.date.month }}.{{ event.date.year }} {{ event.time.h }}:{{ event.time.m }}</span>
+            <span ng-show="event.date_from">{{ event.date_from.day }}.{{ event.date_from.month }}.{{ event.date_from.year }} - {{ event.date_to.day }}.{{ event.date_to.month }}.{{ event.date_to.year }}</span>
+        </h2>
+
+        <div class="row justify-content-center">
+            <div class="col-9">
+                <div id="map" style="width: 100%; height: 20rem;">
+                </div>
+            </div>
+        </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<script>
+    function initMap() {
+        var point = {
+            lat: 55.433334,
+            lng: 37.545649
+        };
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            scrollwheel: false,
+            navigationControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            draggable: true,
+            center: point
+        });
+
+        new google.maps.Marker({
+            position: point,
+            map: map
+        });
+    }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOTjVgbcCH_QMZFsskcCGAtBhqeVLGbeE&callback=initMap"></script>
